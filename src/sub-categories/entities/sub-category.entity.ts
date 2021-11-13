@@ -1,39 +1,38 @@
-import { Exclude } from 'class-transformer';
+import { Category } from 'src/categories/entities/category.entity';
 import { Post } from 'src/posts/entities/post.entity';
-import { SubCategory } from 'src/sub-categories/entities/sub-category.entity';
+import { Product } from 'src/products/entities/product.entity';
 import { User } from 'src/users/entities/user.entity';
 import {
     BeforeInsert,
     Column,
     CreateDateColumn,
     Entity,
-    JoinTable,
     ManyToMany,
     ManyToOne,
-    OneToMany,
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
-export class Product {
+export class SubCategory {
     @PrimaryGeneratedColumn()
     id: number;
     @Column()
     name: string;
     @Column()
-    image: string;
+    description: string;
     @Column()
-    type: number;
+    image: number;
     @Column()
     slug: string;
-    @ManyToOne(() => User, user => user.products)
+    @ManyToOne(() => Category, category => category.subCategories)
+    category: Category;
+    @ManyToOne(() => User, user => user.categories)
     user: User;
-    @ManyToOne(() => Post, post => post.products)
-    post: Post;
-    @ManyToMany(() => SubCategory)
-    @JoinTable()
-    subCategories: SubCategory[];
+    @ManyToMany(() => Post, post => post.subCategories)
+    posts: Post[];
+    @ManyToMany(() => Product, product => product.subCategories)
+    products: Product[];
     @CreateDateColumn()
     created_at: Date;
     @UpdateDateColumn()

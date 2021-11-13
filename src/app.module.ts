@@ -10,6 +10,9 @@ import { UsersModule } from './users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { CommentsModule } from './comments/comments.module';
 import { PostsModule } from './posts/posts.module';
+import { CategoriesModule } from './categories/categories.module';
+import { SubCategoriesModule } from './sub-categories/sub-categories.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -19,12 +22,15 @@ import { PostsModule } from './posts/posts.module';
     PostsModule,
     UsersModule,
     JwtModule.register({
-      secret: 'jwtsecretkey',
+      secret: 'jwt_secret_key',
       signOptions: {
-        expiresIn: '1 hour',
+        expiresIn: '10 day',
       },
     }),
     CommentsModule,
+    CategoriesModule,
+    SubCategoriesModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService, PostsService],

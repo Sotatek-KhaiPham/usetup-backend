@@ -1,5 +1,3 @@
-import { Exclude } from 'class-transformer';
-import { Post } from 'src/posts/entities/post.entity';
 import { SubCategory } from 'src/sub-categories/entities/sub-category.entity';
 import { User } from 'src/users/entities/user.entity';
 import {
@@ -7,8 +5,6 @@ import {
     Column,
     CreateDateColumn,
     Entity,
-    JoinTable,
-    ManyToMany,
     ManyToOne,
     OneToMany,
     PrimaryGeneratedColumn,
@@ -16,23 +12,20 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Product {
+export class Category {
     @PrimaryGeneratedColumn()
     id: number;
     @Column()
     name: string;
     @Column()
-    image: string;
+    description: string;
     @Column()
-    type: number;
+    image: number;
     @Column()
     slug: string;
-    @ManyToOne(() => User, user => user.products)
+    @ManyToOne(() => User, user => user.categories)
     user: User;
-    @ManyToOne(() => Post, post => post.products)
-    post: Post;
-    @ManyToMany(() => SubCategory)
-    @JoinTable()
+    @OneToMany(()=>SubCategory, subCategory =>subCategory.category)
     subCategories: SubCategory[];
     @CreateDateColumn()
     created_at: Date;

@@ -15,17 +15,17 @@ import {
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: number;
-  @Column({default: null })
+  @Column({ default: null })
   lastName: string;
-  @Column({default: null })
+  @Column({ default: null })
   firstName: string;
-  @Column()
+  @Column({ unique: true })
   username: string;
-  @Column({default: null })
+  @Column({ default: null, unique: true })
   phone: string;
-  @Column()
+  @Column({ unique: true })
   email: string;
   @Exclude()
   @Column({ default: null })
@@ -36,15 +36,15 @@ export class User {
   @Exclude()
   @Column()
   password: string;
-  @Column({default: null })
+  @Column({ default: null })
   avatarUrl: string;
-  @OneToMany(() => Product, product => product.user)
+  @OneToMany(() => Product, (product) => product.user)
   products: Product[];
-  @OneToMany(() => Post, post => post.user)
+  @OneToMany(() => Post, (post) => post.user)
   posts: Post[];
-  @OneToMany(() => Category, category => category.user)
+  @OneToMany(() => Category, (category) => category.user)
   categories: Category[];
-  @OneToMany(() => SubCategory, subCategory => subCategory.user)
+  @OneToMany(() => SubCategory, (subCategory) => subCategory.user)
   subCategories: SubCategory[];
   @Column({ default: true })
   isActive: boolean;

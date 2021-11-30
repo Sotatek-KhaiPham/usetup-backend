@@ -5,48 +5,36 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
-import { loginUserDto } from './dto/LoginUser.dto';
+import { loginUserDto } from './dto/loginUser.dto';
+import { validate } from 'class-validator';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private user: Repository<User>,
-  ) { }
-  async create(createUserDto: CreateUserDto) {
+  ) {}
+
+  async create(formData: CreateUserDto) {
     try {
-      const { password } = createUserDto;
-      const saltOrRounds = 10;
-      const passwordHash = await bcrypt.hash(password, saltOrRounds);
-      createUserDto.password = passwordHash
-      const userNew = await this.user.create(createUserDto);
-      const user = await this.user.save(userNew);
-      return user;
-    } catch (error) {
-      return error.message
-    }
-  }
-
-  async login(loginUser: loginUserDto) {
-    try {
-      const { email, phone, username, password } = loginUser;
-
-      const user = await getRepository(User)
-        .createQueryBuilder("userQuery")
-        .where("userQuery.email = :email OR userQuery.phone = :phone OR userQuery.username = :username", { email, phone, username })
-        .getOne();
-
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (isMatch) {
-        const { password, ...result } = user;
-        return result
+      const errors = await validate(formData);
+      console.log(errors);
+      if (errors.length > 0) {
+        throw new Error(`Validation failed!`);
+      } else {
+        const { password } = formData;
+        const saltOrRounds = 10;
+        const passwordHash = await bcrypt.hash(password, saltOrRounds);
+        formData.password = passwordHash;
+        const userNew = await this.user.create(formData);
+        const user = await this.user.save(userNew);
+        return user;
       }
-      return null;
-
     } catch (error) {
-
+      return error.message;
     }
   }
+
   findAll() {
     return `This action returns all users`;
   }

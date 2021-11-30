@@ -3,9 +3,9 @@ import { MysqlConnectionOptions } from 'typeorm/driver/mysql/MysqlConnectionOpti
 const config: MysqlConnectionOptions = {
   type: 'mysql',
   host: 'localhost',
-  port: 8889,
+  port: 3306,
   username: 'root',
-  password: 'root',
+  password: '',
   database: 'usetup',
   entities: ['dist/**/*.entity{.ts,.js}'],
   synchronize: true,

@@ -1,6 +1,8 @@
+import { IsString } from 'class-validator';
+
 export class InfoLogin {
-    email?: string;
-    phone?: string;
-    username?: string;
-    password: string;
+  @IsString()
+  username: string;
+  @IsString()
+  password: string;
 }

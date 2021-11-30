@@ -13,7 +13,7 @@ import * as bcrypt from 'bcrypt';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { loginUserDto } from './dto/LoginUser.dto';
+import { loginUserDto } from './dto/loginUser.dto';
 
 
 @ApiTags('users')
@@ -24,10 +24,6 @@ export class UsersController {
   @Post('/register')
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
-  }
-  @Post('/login')
-  login(@Body() loginUserDto: loginUserDto) {
-    return this.usersService.login(loginUserDto);
   }
 
   @Get()

@@ -24,7 +24,7 @@ export class AuthService {
         const isMatch = await bcrypt.compare(password, user.password);
         if (isMatch) {
           const { password, ...result } = user;
-          const payload = { user: user.username, sub: user.id };
+          const payload = { username: user.username, userId: user.id };
           const access_token = await this.jwtService.sign(payload);
           return { user: { ...result }, access_token };
         }
@@ -35,7 +35,16 @@ export class AuthService {
     }
   }
   async reAuth(token: string) {
-    const user = await this.jwtService.verify(token);
-    return user;
+    try {
+      const { userId } = await this.jwtService.verify(token);
+
+      const user = await getRepository(User)
+        .createQueryBuilder('userQuery')
+        .where('userQuery.id = :userId', { userId })
+        .getOne();
+      return user;
+    } catch (error) {
+      return { status: 400, message: 'Authentication Failed!' };
+    }
   }
 }

@@ -46,7 +46,7 @@ export class User {
   categories: Category[];
   @OneToMany(() => SubCategory, (subCategory) => subCategory.user)
   subCategories: SubCategory[];
-  @Column({ default: true })
+  @Column({ default: false })
   isActive: boolean;
   @CreateDateColumn()
   created_at: Date;

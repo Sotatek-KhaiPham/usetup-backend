@@ -7,18 +7,27 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: ['error', 'warn', 'log', 'debug'],
   });
+  app.setGlobalPrefix('api');
+
   const config = new DocumentBuilder()
     .setTitle('USetup API')
     .setDescription('The description of the API ')
     .setVersion('1.0')
+    .addTag('cats')
     .addBearerAuth(
-      { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
+      {
+        description: `[just text field] Please enter token in following format: Bearer <JWT>`,
+        name: 'Authorization',
+        bearerFormat: 'Bearer', 
+        scheme: 'Bearer',
+        type: 'http',
+        in: 'Header',
+      },
       'access-token',
     )
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/docs', app, document);
-  app.setGlobalPrefix('api');
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,

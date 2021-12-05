@@ -17,7 +17,7 @@ import { ApiTags } from '@nestjs/swagger';
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
-  @Post()
+  @Post('/create')
   create(@Body() createPostDto: CreatePostDto) {
     return this.postsService.create(createPostDto);
   }

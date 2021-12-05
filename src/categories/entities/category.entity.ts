@@ -20,7 +20,7 @@ export class Category {
     @Column()
     description: string;
     @Column()
-    image: number;
+    image: string;
     @Column()
     slug: string;
     @ManyToOne(() => User, user => user.categories)

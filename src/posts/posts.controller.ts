@@ -18,7 +18,7 @@ export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
   @Post('/create')
-  create(@Body() createPostDto: CreatePostDto) {
+  create(@Body() createPostDto: any) {
     return this.postsService.create(createPostDto);
   }
 

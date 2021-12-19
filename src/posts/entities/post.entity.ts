@@ -25,7 +25,7 @@ export class Post {
     @Column()
     type: number;
     @Column()
-    slug: string;
+    slug?: string;
     @ManyToOne(() => User, user => user.posts)
     user: User;
     @OneToMany(() => Product, product => product.post)

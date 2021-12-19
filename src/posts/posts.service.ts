@@ -9,11 +9,13 @@ import { Post } from './entities/post.entity';
 export class PostsService {
   constructor(
     @InjectRepository(Post)
-    private readonly post: Repository<Post>,
+    private readonly postRepository: Repository<Post>,
   ) {}
 
-  async create(formData: CreatePostDto) {
-    return formData;
+  async create(formData: Post): Promise<Post> {
+    const postNew = await this.postRepository.create(formData);
+    const post = await this.postRepository.save(postNew);
+    return post;
   }
 
   findAll() {
@@ -28,7 +30,7 @@ export class PostsService {
     return `This action updates a #${id} post`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} post`;
+  async remove(id: any) {
+    return await this.postRepository.delete(id);
   }
 }

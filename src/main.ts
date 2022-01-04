@@ -2,13 +2,13 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { RolesGuard } from './auth/guard/roles.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: ['error', 'warn', 'log', 'debug'],
   });
   app.setGlobalPrefix('api');
-
   const config = new DocumentBuilder()
     .setTitle('USetup API')
     .setDescription('The description of the API ')
@@ -18,7 +18,7 @@ async function bootstrap() {
       {
         description: `[just text field] Please enter token in following format: Bearer <JWT>`,
         name: 'Authorization',
-        bearerFormat: 'Bearer', 
+        bearerFormat: 'Bearer',
         scheme: 'Bearer',
         type: 'http',
         in: 'Header',

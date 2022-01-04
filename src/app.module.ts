@@ -1,20 +1,19 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import config from '../ormconfig';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
-import { PostsService } from './posts/posts.service';
-import { ProductsModule } from './products/products.module';
-import { UsersModule } from './users/users.module';
-import { CommentsModule } from './comments/comments.module';
-import { PostsModule } from './posts/posts.module';
-import { CategoriesModule } from './categories/categories.module';
-import { SubCategoriesModule } from './sub-categories/sub-categories.module';
+import { PostsModule } from './models/posts/posts.module';
+import { CategoriesModule } from './models/categories/categories.module';
 import { AuthModule } from './auth/auth.module';
-import { User } from './users/entities/user.entity';
-import { Post } from './posts/entities/post.entity';
-import { Category } from './categories/entities/category.entity';
+import { Post } from './models/posts/entities/post.entity';
+import { Category } from './models/categories/entities/category.entity';
+import { User } from './models/users/entities/user.entity';
+import { ProductsModule } from './models/products/products.module';
+import { UsersModule } from './models/users/users.module';
+import { CommentsModule } from './models/comments/comments.module';
+import { SubCategoriesModule } from './models/sub-categories/sub-categories.module';
+import config from 'ormconfig';
 
 @Module({
   imports: [

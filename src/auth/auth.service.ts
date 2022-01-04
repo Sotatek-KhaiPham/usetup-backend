@@ -3,8 +3,8 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { validate } from 'class-validator';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
-import { User } from 'src/users/entities/user.entity';
+import { CreateUserDto } from 'src/models/users/dto/create-user.dto';
+import { User } from 'src/models/users/entities/user.entity';
 import { getRepository, Repository } from 'typeorm';
 import { InfoLogin } from './dto/login.dto';
 

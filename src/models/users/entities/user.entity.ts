@@ -1,8 +1,8 @@
 import { Exclude } from 'class-transformer';
-import { Category } from 'src/categories/entities/category.entity';
-import { Post } from 'src/posts/entities/post.entity';
-import { Product } from 'src/products/entities/product.entity';
-import { SubCategory } from 'src/sub-categories/entities/sub-category.entity';
+import { Category } from 'src/models/categories/entities/category.entity';
+import { Post } from 'src/models/posts/entities/post.entity';
+import { Product } from 'src/models/products/entities/product.entity';
+import { SubCategory } from 'src/models/sub-categories/entities/sub-category.entity';
 import {
   BeforeInsert,
   Column,

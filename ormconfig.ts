@@ -7,11 +7,11 @@ const config: MysqlConnectionOptions = {
   username: 'root',
   password: '',
   database: 'usetup',
-  entities: ['dist/**/*.entity{.ts,.js}'],
+  entities: ['dist/**/**/*.entity{.ts,.js}'],
   synchronize: true,
-  migrations: ['migration/*.ts'],
+  migrations: ['dist/migration/*.ts'],
   cli: {
-    migrationsDir: 'migration',
+    migrationsDir: 'src/database/migration',
   },
 };
 
